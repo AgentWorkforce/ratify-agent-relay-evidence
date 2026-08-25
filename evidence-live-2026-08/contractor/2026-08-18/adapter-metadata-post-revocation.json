@@ -1,0 +1,23 @@
+{
+ "ratify_trusted_issuers": [
+  "345140967b9b99a16983cdfeb8acc807",
+  "5a727611736ec8902a419e04fc91d816"
+ ],
+ "ratify_trusted_issuer_origins": {
+  "345140967b9b99a16983cdfeb8acc807": "configured",
+  "5a727611736ec8902a419e04fc91d816": "configured"
+ },
+ "ratify_trusted_issuer_count": 2,
+ "ratify_trusted_issuers_source": "/opt/adapter/trusted-issuers.json",
+ "ratify_trust_published_at": "2026-08-18T12:50:43.003Z",
+ "ratify_last_revocation": {
+  "result": "applied",
+  "issuer_id": "345140967b9b99a16983cdfeb8acc807",
+  "revoked_certs": [
+   "relay-run-1787074501"
+  ],
+  "applied_count": 1,
+  "from": "ext-ratify-federation-run-03331b48",
+  "at": "2026-08-18T18:22:04.716Z"
+ }
+}

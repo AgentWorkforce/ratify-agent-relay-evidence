@@ -1,0 +1,55 @@
+[32mREFUSED[0m  A1 replay of a valid presentation
+          first accepted; replay refused as invalid (unknown_challenge: challenge was not issued by this verifier or has already been used)
+[32mREFUSED[0m  A2 proof rebound to a different message
+          proof was signed over message A and presented to authorize message B: invalid (session_context_mismatch: bundle session_context does not match verifier context)
+[32mREFUSED[0m  A3 proof rebound to a different path
+          proof was bound to /docs/a.md and presented for /src/secrets.ts: invalid (session_context_mismatch: bundle session_context does not match verifier context)
+[32mREFUSED[0m  A4 self-minted challenge
+          agent generated its own challenge instead of using one we issued: invalid (unknown_challenge: challenge was not issued by this verifier or has already been used)
+[32mREFUSED[0m  A5 scope outside the delegation
+          chain grants files:write but the operation required execute:code: scope_denied (scope_denied: required scope "execute:code" not in effective delegation scope)
+[32mREFUSED[0m  A6 presentation forwarded to another verifier
+          proof was bound to this verifier and evaluated against another: invalid (session_context_mismatch: bundle session_context does not match verifier context)
+
+6/6 adversarial cases refused
+[31mWARNING: serve-authority enforcement DISABLED (negative control). This verifier will accept grants naming deployments it does not serve.[0m
+[31mWARNING: serve-authority enforcement DISABLED (negative control). This verifier will accept grants naming deployments it does not serve.[0m
+
+serve-authority federation (§2.1)
+ok    ratify.agentrelay.com accepts its own authority
+      expected core=authorized_agent; deployment served; got core=authorized_agent; deployment=authorized_agent; receipt=authorized_agent; served=true
+ok    ratify.agentrelay.com refuses relay.ratifyprotocol.com
+      expected core=authorized_agent preserved; deployment refused (unserved_authority); got core=authorized_agent; deployment=unauthorized; receipt=authorized_agent; served=false (unserved_authority)
+ok    relay.ratifyprotocol.com accepts its own authority
+      expected core=authorized_agent; deployment served; got core=authorized_agent; deployment=authorized_agent; receipt=authorized_agent; served=true
+ok    relay.ratifyprotocol.com refuses ratify.agentrelay.com
+      expected core=authorized_agent preserved; deployment refused (unserved_authority); got core=authorized_agent; deployment=unauthorized; receipt=authorized_agent; served=false (unserved_authority)
+ok    negative control: our check disabled, Ratify grant passes core verification
+      expected core=authorized_agent; deployment served; got core=authorized_agent; deployment=authorized_agent; receipt=authorized_agent; served=true
+ok    negative control: Ratify check disabled, our grant passes core verification
+      expected core=authorized_agent; deployment served; got core=authorized_agent; deployment=authorized_agent; receipt=authorized_agent; served=true
+ok    reason separation: broken signature remains invalid-chain
+      expected invalid (core reason, not unserved_authority); got core=invalid; deployment=invalid (bad_challenge_sig: challenge signature verification failed: Ed25519 signature invalid); receipt=invalid (bad_challenge_sig: challenge signature verification failed: Ed25519 signature invalid); served=true
+ok    unconstrained chain over a foreign authority is still refused
+      expected core=authorized_agent preserved; deployment refused (unserved_authority); got core=authorized_agent; deployment=unauthorized; receipt=authorized_agent; served=false (unserved_authority)
+ok    unconstrained chain over the served authority is accepted
+      expected core=authorized_agent; deployment served; got core=authorized_agent; deployment=authorized_agent; receipt=authorized_agent; served=true
+ok    malformed id under the served authority fails closed
+      expected core=authorized_agent preserved; deployment refused (unserved_authority); got core=authorized_agent; deployment=unauthorized; receipt=authorized_agent; served=false (unserved_authority)
+ok    paired evidence: served decision beside its own receipt is accepted
+      expected consumer accepts; got accepted
+ok    paired evidence: a refusal is refused by the consumer
+      expected consumer refuses; got refused: deployment refused to serve: unserved_authority (serves ratify.agentrelay.com, operation named relay.ratifyprotocol.com)
+ok    paired evidence: STRIPPING the decision does not read as an accept
+      expected consumer refuses; got refused: no deployment decision accompanied the receipt
+ok    paired evidence: a served decision lifted onto the refused receipt is rejected
+      expected consumer refuses; got refused: deployment decision is not bound to this receipt
+ok    paired evidence: flipping served=true without re-signing is rejected
+      expected consumer refuses; got refused: deployment decision signature invalid: Ed25519 signature invalid
+ok    paired evidence: a decision RE-SIGNED under an attacker key is rejected
+      expected consumer refuses; got refused: deployment decision carries a different verifier key than the receipt
+ok    paired evidence: an invalid-chain receipt is refused despite served=true
+      expected consumer refuses; got refused: core verification did not authorize: invalid (bad_challenge_sig: challenge signature verification failed: Ed25519 signature invalid)
+ok    paired evidence: an unknown decision version is rejected
+      expected consumer refuses; got refused: unsupported deployment decision version 2 (expected 1)
+18/18 serve-authority cases passed
