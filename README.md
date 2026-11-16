@@ -1,9 +1,6 @@
 # Ratify × Agent Relay — Phase 2 live evidence (contractor half)
 
-This is Agent Relay's half of the evidence from two live Ratify Protocol runs, on
-2026-08-18 and 2026-08-19. Identities AI holds the other half in
-[`identities-ai/ratify-agent-relay-harness`](https://github.com/identities-ai/ratify-agent-relay-harness)
-under `evidence-live-2026-08/client/`, along with the runnable reproduction.
+Agent Relay’s half of the evidence from two live Ratify delegation and revocation trials. It records what happened; the partner repository holds the other half and runnable reproduction.
 
 In both sessions Ratify Protocol held the root. They issued delegation
 certificates to an agent running on Agent Relay, that agent did real work in a
